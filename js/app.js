@@ -28,3 +28,44 @@
       - Para obter a key e fazer requests, você terá que fazer login e escolher
         o plano free. Seus dados de cartão de crédito não serão solicitados.
 */
+
+const currencyOneEl = document.querySelector('[data-js="currency-one"]');
+const currencyTwoEl = document.querySelector('[data-js="currency-two"]');
+
+// Referenciando a API do ExtancheRate-API
+const url = 'https://v6.exchangerate-api.com/v6/7c4ac44030380bf495ea9096/latest/kkk';
+
+// Método para informa o tipo de erro
+const getErrorMessagem = errorType => ({
+  'unsupported-code': 'A moeda não existe no nosso banco de dados.',
+  'base-code-only-on-pro': 'Informações de moedas que não seja USD ou EUR só podem ser acessadas a partir de contas pro',
+  'malformed-request': 'O endpoint do seu request precisar seguir a estrutura à seguir: https://v6.exchangerate-api.com/v6/YOUR-API-KEY/latest/USD',
+  'invalid-key': 'A chave da API não é válida',
+  'inactive-account': 'Seu endereço de e-mail não foi confirmado',
+  'quota-reached': 'Sua conta alcançou o limite de requests permitio em seu plano atual',
+  'not-available-on-plan': 'Seu plano atual não permite esse tipo de request'
+})[errorType] || 'Não foi possível obter as informações.'
+
+// Função que buscar a taxa de intercâmbio
+const fetchExchangeRate = async () => {
+  try {
+    // o fetch é utlizado quando se deseja buscar dados de outro lugar, nesse caso a API
+    const response = await fetch(url);
+    const exchangeRateDate = await response.json();
+
+    if (exchangeRateDate.result === 'error') {
+      throw new Error(getErrorMessagem(exchangeRateDate['error-type']));
+    }
+  } catch (err) {
+    alert(err.message);
+  }
+} //fetchExchangeRate();
+
+fetchExchangeRate();
+
+const option = `<option>oi</option>`;
+
+currencyOneEl.innerHTML = option
+currencyTwoEl.innerHTML = option
+
+console.log(currencyOneEl, currencyTwoEl);
