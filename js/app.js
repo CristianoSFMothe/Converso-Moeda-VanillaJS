@@ -31,9 +31,10 @@
 
 const currencyOneEl = document.querySelector('[data-js="currency-one"]');
 const currencyTwoEl = document.querySelector('[data-js="currency-two"]');
+const currenciesEl = document.querySelector('[data-js="currencies-container"]');
 
 // Referenciando a API do ExtancheRate-API
-const url = 'https://v6.exchangerate-api.com/v6/7c4ac44030380bf495ea9096/latest/kkk';
+const url = 'https://v6.exchangerate-api.com/v6/7c4ac44030380bf495ea9096/latest/USD';
 
 // Método para informa o tipo de erro
 const getErrorMessagem = errorType => ({
@@ -51,13 +52,33 @@ const fetchExchangeRate = async () => {
   try {
     // o fetch é utlizado quando se deseja buscar dados de outro lugar, nesse caso a API
     const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error('Sua conexão falhou. Não foi possível obter as informações.');
+    }
+
     const exchangeRateDate = await response.json();
 
     if (exchangeRateDate.result === 'error') {
       throw new Error(getErrorMessagem(exchangeRateDate['error-type']));
     }
   } catch (err) {
-    alert(err.message);
+    const div = document.createElement('div');
+    const button = document.createElement('button');
+
+    div.textContent = err.message;
+    div.classList.add('alert', 'alert-warning', 'alert-dismissible', 'fade', 'show');
+    div.setAttribute('role', 'alert');
+    button.classList.add('btn-close');
+    button.setAttribute('type', 'button');
+    button.setAttribute('aria-label', 'Close');
+
+    button.addEventListener('click', () => {
+      div.remove();
+    });
+
+    div.appendChild(button);
+    currenciesEl.insertAdjacentElement('afterend', div);
   }
 } //fetchExchangeRate();
 
@@ -65,7 +86,5 @@ fetchExchangeRate();
 
 const option = `<option>oi</option>`;
 
-currencyOneEl.innerHTML = option
-currencyTwoEl.innerHTML = option
-
-console.log(currencyOneEl, currencyTwoEl);
+currencyOneEl.innerHTML = option;
+currencyTwoEl.innerHTML = option;
