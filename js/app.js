@@ -34,9 +34,12 @@ const currencyTwoEl = document.querySelector('[data-js="currency-two"]');
 const currenciesEl = document.querySelector('[data-js="currencies-container"]');
 const convertedValueEl = document.querySelector('[data-js="converted-value"]');
 const valuePrecisionEl = document.querySelector('[data-js="conversion-precision"]');
+const timesCurrencyOneEl = document.querySelector('[data-js="currency-one-times"]');
+
+let internalExchangeRate = {};
 
 // Referenciando a API do ExtancheRate-API
-const url = 'https://v6.exchangerate-api.com/v6/7c4ac44030380bf495ea9096/latest/USD';
+const getUrl = currency => `https://v6.exchangerate-api.com/v6/7c4ac44030380bf495ea9096/latest/${currency}`;
 
 // Método para informa o tipo de erro
 const getErrorMessagem = errorType => ({
@@ -50,7 +53,7 @@ const getErrorMessagem = errorType => ({
 })[errorType] || 'Não foi possível obter as informações.'
 
 // Função que buscar a taxa de intercâmbio
-const fetchExchangeRate = async () => {
+const fetchExchangeRate = async url => {
   try {
     // o fetch é utlizado quando se deseja buscar dados de outro lugar, nesse caso a API
     const response = await fetch(url);
@@ -87,18 +90,46 @@ const fetchExchangeRate = async () => {
 } //fetchExchangeRate();
 
 const init = async () => {
-  const exchangeRateDate = await fetchExchangeRate(); 
+  internalExchangeRate = { ...(await fetchExchangeRate(getUrl('USD'))) };
   
-  const getOptions = selectedCurrency => Object.keys(exchangeRateDate.conversion_rates)
+  const getOptions = selectedCurrency => Object.keys(internalExchangeRate.conversion_rates)
   .map(currency => `<option ${currency === selectedCurrency ? 'selected' : ''}>${currency}</option>`)
   .join('');
 
   currencyOneEl.innerHTML = getOptions('USD');
   currencyTwoEl.innerHTML = getOptions('BRL');
 
-  convertedValueEl.textContent = exchangeRateDate.conversion_rates.BRL.toFixed(2);
-  valuePrecisionEl.textContent = `1 USD = ${exchangeRateDate.conversion_rates.BRL} BRL`
+  convertedValueEl.textContent = internalExchangeRate.conversion_rates.BRL
+    .toFixed(2);
+  valuePrecisionEl.textContent = `1 ${currencyOneEl.value} = ${internalExchangeRate.conversion_rates.BRL} BRL`;
 }
+
+// Exibindo as taxas da contação da moeda selecionada para moeda corrente
+timesCurrencyOneEl.addEventListener('input', e =>{
+  convertedValueEl.textContent = (e.target.value * internalExchangeRate
+    .conversion_rates[currencyTwoEl.value])
+    .toFixed(2);
+});
+
+// Exibindo a taxa de contação da moeda selecionada para outra moeda corrente
+currencyTwoEl.addEventListener('input', e => {
+  const currencyTwoValue = internalExchangeRate.conversion_rates[e.target.value];
+
+  convertedValueEl.textContent = (timesCurrencyOneEl.value * currencyTwoValue)
+  .toFixed(2);
+
+  valuePrecisionEl.textContent = `1 ${currencyOneEl.value} = ${1 * internalExchangeRate
+    .conversion_rates[currencyTwoEl.value]} ${currencyTwoEl.value}`
+});
+
+// Mudando a taxa da moeda principal do cambio
+currencyOneEl.addEventListener('input', async e => {
+  internalExchangeRate = { ...(await fetchExchangeRate(getUrl(e.target.value))) };
+
+  convertedValueEl.textContent = (timesCurrencyOneEl.value * internalExchangeRate.conversion_rates[currencyTwoEl.value]).toFixed(2);
+  
+  valuePrecisionEl.textContent = `1 ${currencyOneEl.value} = ${1 * internalExchangeRate.conversion_rates[currencyTwoEl.value]} ${currencyTwoEl.value}`
+});
 
 init();
 
