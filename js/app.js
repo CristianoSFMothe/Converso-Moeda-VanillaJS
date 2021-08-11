@@ -35,8 +35,43 @@ const currenciesEl = document.querySelector('[data-js="currencies-container"]');
 const convertedValueEl = document.querySelector('[data-js="converted-value"]');
 const valuePrecisionEl = document.querySelector('[data-js="conversion-precision"]');
 const timesCurrencyOneEl = document.querySelector('[data-js="currency-one-times"]');
+// Método de exibição do alert
+const showAlert = err => {
+  const div = document.createElement('div');
+  const button = document.createElement('button');
 
-let internalExchangeRate = {};
+  div.textContent = err.message;
+  div.classList.add('alert', 'alert-warning', 'alert-dismissible', 'fade', 'show');
+  div.setAttribute('role', 'alert');
+  button.classList.add('btn-close');
+  button.setAttribute('type', 'button');
+  button.setAttribute('aria-label', 'Close');
+
+  button.addEventListener('click', () => {
+    div.remove();
+  });
+
+  div.appendChild(button);
+  currenciesEl.insertAdjacentElement('afterend', div);
+} // showAlert();
+
+// IIEF == Método de modolização do state
+const state = (() => {
+  let exchangeRate = {}
+
+  return {
+    getExchangeRate: () => exchangeRate,
+    setExchangeRate: newExchangeRate => {
+      if (!newExchangeRate.conversion_rates) {
+        showAlert({ message: 'O objeto precisa ter uma propriedade conversion_rates' });
+        return;
+      }
+
+      exchangeRate = newExchangeRate
+      return exchangeRate
+    }
+  }
+})() // state() == IIFE
 
 // Referenciando a API do ExtancheRate-API
 const getUrl = currency => `https://v6.exchangerate-api.com/v6/7c4ac44030380bf495ea9096/latest/${currency}`;
@@ -70,68 +105,62 @@ const fetchExchangeRate = async url => {
 
     return exchangeRateDate;
   } catch (err) {
-    const div = document.createElement('div');
-    const button = document.createElement('button');
-
-    div.textContent = err.message;
-    div.classList.add('alert', 'alert-warning', 'alert-dismissible', 'fade', 'show');
-    div.setAttribute('role', 'alert');
-    button.classList.add('btn-close');
-    button.setAttribute('type', 'button');
-    button.setAttribute('aria-label', 'Close');
-
-    button.addEventListener('click', () => {
-      div.remove();
-    });
-
-    div.appendChild(button);
-    currenciesEl.insertAdjacentElement('afterend', div);
+    showAlert(err);
   }
 } //fetchExchangeRate();
 
-const init = async () => {
-  internalExchangeRate = { ...(await fetchExchangeRate(getUrl('USD'))) };
-  
-  const getOptions = selectedCurrency => Object.keys(internalExchangeRate.conversion_rates)
-  .map(currency => `<option ${currency === selectedCurrency ? 'selected' : ''}>${currency}</option>`)
-  .join('');
+// Exibição da informação da moeda
+const showInitialInfo = exchangeRate => {
+  const getOptions = selectedCurrency => Object.keys(exchangeRate.conversion_rates)
+    .map(currency => `<option ${currency === selectedCurrency ? 'selected' : ''}>${currency}</option>`)
+    .join('');
 
   currencyOneEl.innerHTML = getOptions('USD');
   currencyTwoEl.innerHTML = getOptions('BRL');
 
-  convertedValueEl.textContent = internalExchangeRate.conversion_rates.BRL
+  convertedValueEl.textContent = exchangeRate.conversion_rates.BRL
     .toFixed(2);
-  valuePrecisionEl.textContent = `1 ${currencyOneEl.value} = ${internalExchangeRate.conversion_rates.BRL} BRL`;
+  valuePrecisionEl.textContent = `1 ${currencyOneEl.value} = ${exchangeRate.conversion_rates.BRL} BRL`;
+} // showInitialInfo()
+
+const init = async () => {
+  const exchangeRate = state.setExchangeRate(await fetchExchangeRate(getUrl('USD')))
+  
+  if (exchangeRate && exchangeRate.conversion_rates) {
+    showInitialInfo(exchangeRate);
+  }
 }
 
+// Exibindo a lista de taxa de cambio da moeda atualizada
+const showUpdateRates = exchangeRate => {
+  convertedValueEl.textContent = (timesCurrencyOneEl.value * exchangeRate
+    .conversion_rates[currencyTwoEl.value]).toFixed(2);
+
+  valuePrecisionEl.textContent = `1 ${currencyOneEl.value} = ${1 * exchangeRate
+    .conversion_rates[currencyTwoEl.value]} ${currencyTwoEl.value}`
+} // showUpdateRates();
+
 // Exibindo as taxas da contação da moeda selecionada para moeda corrente
-timesCurrencyOneEl.addEventListener('input', e =>{
-  convertedValueEl.textContent = (e.target.value * internalExchangeRate
+timesCurrencyOneEl.addEventListener('input', e => {
+  const exchangeRate = state.getExchangeRate();
+  console.log(exchangeRate)
+  convertedValueEl.textContent = (e.target.value * exchangeRate
     .conversion_rates[currencyTwoEl.value])
     .toFixed(2);
-});
+}); //timesCurrencyOneEl();
 
 // Exibindo a taxa de contação da moeda selecionada para outra moeda corrente
-currencyTwoEl.addEventListener('input', e => {
-  const currencyTwoValue = internalExchangeRate.conversion_rates[e.target.value];
-
-  convertedValueEl.textContent = (timesCurrencyOneEl.value * currencyTwoValue)
-  .toFixed(2);
-
-  valuePrecisionEl.textContent = `1 ${currencyOneEl.value} = ${1 * internalExchangeRate
-    .conversion_rates[currencyTwoEl.value]} ${currencyTwoEl.value}`
-});
+currencyTwoEl.addEventListener('input', () => {
+  const exchangeRate = state.getExchangeRate();
+  showUpdateRates(exchangeRate);
+}); // currencyTwoEl();
 
 // Mudando a taxa da moeda principal do cambio
 currencyOneEl.addEventListener('input', async e => {
-  internalExchangeRate = { ...(await fetchExchangeRate(getUrl(e.target.value))) };
-
-  convertedValueEl.textContent = (timesCurrencyOneEl.value * internalExchangeRate.conversion_rates[currencyTwoEl.value]).toFixed(2);
-  
-  valuePrecisionEl.textContent = `1 ${currencyOneEl.value} = ${1 * internalExchangeRate.conversion_rates[currencyTwoEl.value]} ${currencyTwoEl.value}`
-});
+  const exchangeRate = state.setExchangeRate(await fetchExchangeRate(getUrl(e.target.value)))
+  showUpdateRates(exchangeRate);
+}); // currencyOneEl();
 
 init();
-
 
 
