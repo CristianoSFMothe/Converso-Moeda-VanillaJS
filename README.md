@@ -58,9 +58,8 @@ Feito com ❤️ por Cristiano da Silva Ferreira - atráves da formação do cur
 </h4>
 
 
-
 <h4 align="center"> 
-	🚧  Construindo mais funcionalidades...  🚧
+	🚧  Finalizado podendo ser acessado atráves do endereço <a href="https://cristianodasilvaferreira.github.io/Converso-Moeda-VanillaJS/">Converso de Moedas</a>  🚧
 </h4>
 
 
