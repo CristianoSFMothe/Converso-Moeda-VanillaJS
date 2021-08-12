@@ -110,43 +110,52 @@ const fetchExchangeRate = async url => {
 } //fetchExchangeRate();
 
 // Exibição da informação da moeda
-const showInitialInfo = exchangeRate => {
-  const getOptions = selectedCurrency => Object.keys(exchangeRate.conversion_rates)
+const showInitialInfo = ({ conversion_rates }) => {
+  const getOptions = selectedCurrency => Object.keys(conversion_rates)
     .map(currency => `<option ${currency === selectedCurrency ? 'selected' : ''}>${currency}</option>`)
     .join('');
 
   currencyOneEl.innerHTML = getOptions('USD');
   currencyTwoEl.innerHTML = getOptions('BRL');
 
-  convertedValueEl.textContent = exchangeRate.conversion_rates.BRL
+  convertedValueEl.textContent = conversion_rates.BRL
     .toFixed(2);
-  valuePrecisionEl.textContent = `1 ${currencyOneEl.value} = ${exchangeRate.conversion_rates.BRL} BRL`;
+  valuePrecisionEl.textContent = `1 ${currencyOneEl.value} = ${conversion_rates.BRL} BRL`;
 } // showInitialInfo()
 
+// Método de inicialização da API
 const init = async () => {
-  const exchangeRate = state.setExchangeRate(await fetchExchangeRate(getUrl('USD')))
+  const url = getUrl('USD');
+  const exchangeRateFromAPI = await fetchExchangeRate(url);
+  const exchangeRate = state.setExchangeRate(exchangeRateFromAPI);
   
   if (exchangeRate && exchangeRate.conversion_rates) {
     showInitialInfo(exchangeRate);
   }
-}
+} // init();
+
+// Método de mutiplicação da taxa de cambio
+const getMultipliedExchangeRate = conversion_rates => {
+  const currencyTwo = conversion_rates[currencyTwoEl.value];
+  return (timesCurrencyOneEl.value * currencyTwo).toFixed(2);
+} // getMultipliedExchangeRate();
+
+// Método para retornar o valor não aredondado
+const getNotRoundedExchangeRates = conversion_rates => {
+  const currencyTwo = conversion_rates[currencyTwoEl.value];
+  return `1 ${currencyOneEl.value} = ${1 * currencyTwo} ${currencyTwoEl.value}`
+} // getNotRoundedExchangeRates();
 
 // Exibindo a lista de taxa de cambio da moeda atualizada
-const showUpdateRates = exchangeRate => {
-  convertedValueEl.textContent = (timesCurrencyOneEl.value * exchangeRate
-    .conversion_rates[currencyTwoEl.value]).toFixed(2);
-
-  valuePrecisionEl.textContent = `1 ${currencyOneEl.value} = ${1 * exchangeRate
-    .conversion_rates[currencyTwoEl.value]} ${currencyTwoEl.value}`
+const showUpdateRates = ({ conversion_rates }) => {
+  convertedValueEl.textContent = getMultipliedExchangeRate(conversion_rates);
+  valuePrecisionEl.textContent = getNotRoundedExchangeRates(conversion_rates);
 } // showUpdateRates();
 
 // Exibindo as taxas da contação da moeda selecionada para moeda corrente
-timesCurrencyOneEl.addEventListener('input', e => {
-  const exchangeRate = state.getExchangeRate();
-  console.log(exchangeRate)
-  convertedValueEl.textContent = (e.target.value * exchangeRate
-    .conversion_rates[currencyTwoEl.value])
-    .toFixed(2);
+timesCurrencyOneEl.addEventListener('input', () => {
+  const { conversion_rates } = state.getExchangeRate();
+  convertedValueEl.textContent = getMultipliedExchangeRate(conversion_rates);
 }); //timesCurrencyOneEl();
 
 // Exibindo a taxa de contação da moeda selecionada para outra moeda corrente
@@ -157,7 +166,9 @@ currencyTwoEl.addEventListener('input', () => {
 
 // Mudando a taxa da moeda principal do cambio
 currencyOneEl.addEventListener('input', async e => {
-  const exchangeRate = state.setExchangeRate(await fetchExchangeRate(getUrl(e.target.value)))
+  const url = getUrl(e.target.value);
+  const newExchangeRate = await fetchExchangeRate(url);
+  const exchangeRate = state.setExchangeRate(newExchangeRate)
   showUpdateRates(exchangeRate);
 }); // currencyOneEl();
 
