@@ -39,7 +39,7 @@ As seguintes ferramentas foram utilizadas para construção desse projeto:
  <sub><b>Cristiano da Silva Ferreira</b></sub></a>🚀
 
 
-Feito com ❤️ por Cristiano da Silva Ferreira - atráves da formação do curso da <a href="https://hcode.com.br/cursos/JSFULL" target="_blank">Hcode Treinamentos</a> - <a href="https://www.udemy.com/course/javascript-curso-completo/" target="blank">Udemy</a> 👋🏽 Entre em contato!
+<p>Feito com ❤️ por Cristiano da Silva Ferreira 👋🏽 Entre em contato!</p>
 
 [![Linkedin Badge](https://img.shields.io/badge/-Cristiano-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/cristiano-da-silva-ferreira/)](https://www.linkedin.com/in/cristiano-da-silva-ferreira/) 
 [![Gmail Badge](https://img.shields.io/badge/-cristianodevsystemo@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:cristianodevsysten@gmail.com)](mailto:cristianodevsystem@gmail.com)
