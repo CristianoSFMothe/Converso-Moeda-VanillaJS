@@ -9,7 +9,6 @@
 
 <h1>:moneybag: Converso Moeda VanillaJS</h1>
 
-
 <p>:rocket: Um converso de moeda usando VanillaJS, sem uso de framework ou libs do JavaScript. Ou seja puro JavaScript.</p>
 
 
@@ -27,9 +26,10 @@
 
 <h2>🛠 Tecnologias</h3>
 As seguintes ferramentas foram utilizadas para construção desse projeto:
-- [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
-  - [HTML5](https://www.w3schools.com/html/)
-  - [CSS3](https://www.w3schools.com/css/)
+  - [x]<a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript">JavaScript</a>
+  - [x]<a href="https://www.w3schools.com/html/">HTML5</a>
+  - [x]<a href="https://www.w3schools.com/css/">CSS3</a>
+  - [x]<a href="https://getbootstrap.com/">Bootstrap</a>
 
  
 <h3> Autor </h3>
@@ -62,12 +62,6 @@ Feito com ❤️ por Cristiano da Silva Ferreira - atráves da formação do cur
 <h4 align="center"> 
 	🚧  Construindo mais funcionalidades...  🚧
 </h4>
-
-  
-
-
-
-
 
 
 <p>apredendo a utulização de IIFE (Immediately Invoked Function Expression), que antigamente era usado fazendo com que uma aplicação tivesse só escopo locais, ou seja somente escopo de funções. Mas agora com as novas versões do JavaScript, com a utilização do ES6, que agora faz com que tenha-se o sistema de modulos. O que no caso dessa aplicação, será aplicado a utilização da IIFE para fazer com a função seja autoexecutável</p>
