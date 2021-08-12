@@ -1,3 +1,5 @@
+<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/CristianoDaSilvaFerreira/Converso-Moeda-VanillaJS?style=plastic"> <img alt="GitHub" src="https://img.shields.io/github/license/CristianoDaSilvaFerreira/Converso-Moeda-VanillaJS"> <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/CristianoDaSilvaFerreira/Converso-Moeda-VanillaJS">
+
 <h1>Converso Moeda VanillaJS</h1>
 
 <p>Um converso de moeda usando VanillaJS, sem uso de framework ou libs. Ou seja puro JavaScript.</p>
