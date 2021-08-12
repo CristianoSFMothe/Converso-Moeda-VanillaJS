@@ -1,4 +1,4 @@
-<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/CristianoDaSilvaFerreira/Converso-Moeda-VanillaJS?style=plastic"> <img alt="GitHub" src="https://img.shields.io/github/license/CristianoDaSilvaFerreira/Converso-Moeda-VanillaJS"> <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/CristianoDaSilvaFerreira/Converso-Moeda-VanillaJS">
+<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/CristianoDaSilvaFerreira/Converso-Moeda-VanillaJS?style=plastic"> <img alt="GitHub" src="https://img.shields.io/github/license/CristianoDaSilvaFerreira/Converso-Moeda-VanillaJS"> <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/CristianoDaSilvaFerreira/Converso-Moeda-VanillaJS"> <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/CristianoDaSilvaFerreira/Converso-Moeda-VanillaJS"> <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/CristianoDaSilvaFerreira/Converso-Moeda-VanillaJS">
 
 <h1>Converso Moeda VanillaJS</h1>
 
