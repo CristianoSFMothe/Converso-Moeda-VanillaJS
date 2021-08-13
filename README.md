@@ -26,10 +26,38 @@
 
 <h2>🛠 Tecnologias</h3>
 As seguintes ferramentas foram utilizadas para construção desse projeto:
-  - [x]<a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript">JavaScript</a>
-  - [x]<a href="https://www.w3schools.com/html/">HTML5</a>
-  - [x]<a href="https://www.w3schools.com/css/">CSS3</a>
-  - [x]<a href="https://getbootstrap.com/">Bootstrap</a>
+<ul>
+	<li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript">JavaScript</a> </li>
+	<li><a href="https://www.w3schools.com/html/">HTML5</a></li>
+	<li><a href="https://www.w3schools.com/css/">CSS3</a></li>
+	<li><a href="https://getbootstrap.com/">Bootstrap</a></li>
+</ul>
+ 
+
+
+<p>Aplicando a apredezagem a utulização de IIFE (Immediately Invoked Function Expression), que antigamente era usado fazendo com que uma aplicação tivesse só escopo locais, ou seja somente escopo de funções. Mas agora com as novas versões do JavaScript, com a utilização do ES6, que agora faz com que tenha-se o sistema de modulos. O que no caso dessa aplicação, será aplicado a utilização da IIFE para fazer com a função seja autoexecutável</p>
+
+~~~javascript
+  const state = (() => {
+    let exchangeRate = {}
+
+    return {
+      getExchangeRate: () => exchangeRate,
+      setExchangeRate: newExchangeRate => {
+        if (!newExchangeRate.conversion_rates) {
+          showAlert({ 
+            message: 'O objeto precisa ter uma propriedade conversion_rates' 
+          });
+          return;
+        }
+
+        exchangeRate = newExchangeRate
+        return exchangeRate
+      }
+    }
+  })()
+~~~
+
 
  
 <h3> Autor </h3>
@@ -63,28 +91,6 @@ As seguintes ferramentas foram utilizadas para construção desse projeto:
 </h4>
 
 
-<p>apredendo a utulização de IIFE (Immediately Invoked Function Expression), que antigamente era usado fazendo com que uma aplicação tivesse só escopo locais, ou seja somente escopo de funções. Mas agora com as novas versões do JavaScript, com a utilização do ES6, que agora faz com que tenha-se o sistema de modulos. O que no caso dessa aplicação, será aplicado a utilização da IIFE para fazer com a função seja autoexecutável</p>
-
-~~~javascript
-  const state = (() => {
-    let exchangeRate = {}
-
-    return {
-      getExchangeRate: () => exchangeRate,
-      setExchangeRate: newExchangeRate => {
-        if (!newExchangeRate.conversion_rates) {
-          showAlert({ 
-            message: 'O objeto precisa ter uma propriedade conversion_rates' 
-          });
-          return;
-        }
-
-        exchangeRate = newExchangeRate
-        return exchangeRate
-      }
-    }
-  })()
-~~~
 
 
 
