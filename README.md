@@ -24,6 +24,38 @@
 <p>Com acesso a API podemos obter os dados referente as cotações da moedas, e fazemos a nossa configuração para definir qual a moeda é a de base de referência.</p>
 <img src="https://user-images.githubusercontent.com/68359459/129281094-c64baf35-32d9-42e4-89bd-a0d63309353e.png">
 
+
+## 📥 Instalação e execução
+Faça um clone desse repósitorio, e acesse esse diretório
+```bash
+  $ git clone https://github.com/CristianoDaSilvaFerreira/Converso-Moeda-VanillaJS.git
+```
+
+## :muscle: Contribuir
+
+Faça o `fork` e clone o projeto a partir do seu usuário.
+
+```bash
+# Clonando projeto
+$ git clone https://github.com/SEU-NOME-DE-USUARIO/netflix-clone.git
+
+# Criando um branch
+$ git branch minha-alteracao
+
+# Acessando o novo branch
+$ git checkout -b minha-alteracao
+
+# Adicionando os arquivos alterados
+$ git add .
+
+# Criando commit e a mensagem
+$ git commit -m "Corrigindo...."
+
+# Enviando alterações para o brach
+$ git push origin minha-alteracao
+```
+Você deve navegar até o seu repositório onde fez o fork e clicar no botão *New pull request* no lado esquerdo da página.
+
 <h2>🛠 Tecnologias</h3>
 As seguintes ferramentas foram utilizadas para construção desse projeto:
 <ul>
@@ -58,6 +90,36 @@ As seguintes ferramentas foram utilizadas para construção desse projeto:
   })()
 ~~~
 
+## 📥 Instalação e execução
+Faça um clone desse repósitorio, e acesse esse diretório
+```bash
+  $ git clone https://github.com/CristianoDaSilvaFerreira/Coffee-Shop.git
+```
+
+## :muscle: Contribuir
+
+Faça o `fork` e clone o projeto a partir do seu usuário.
+
+```bash
+# Clonando projeto
+$ git clone https://github.com/SEU-NOME-DE-USUARIO/netflix-clone.git
+
+# Criando um branch
+$ git branch minha-alteracao
+
+# Acessando o novo branch
+$ git checkout -b minha-alteracao
+
+# Adicionando os arquivos alterados
+$ git add .
+
+# Criando commit e a mensagem
+$ git commit -m "Corrigindo...."
+
+# Enviando alterações para o brach
+$ git push origin minha-alteracao
+```
+Você deve navegar até o seu repositório onde fez o fork e clicar no botão *New pull request* no lado esquerdo da página.
 
  
 <h3> Autor </h3>
