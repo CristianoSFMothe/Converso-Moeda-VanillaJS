@@ -19,7 +19,8 @@
 <img src="https://user-images.githubusercontent.com/68359459/129280905-bb2abefb-8232-451f-8be3-5dc4c43502cd.png">
   
 
-<img src="https://user-images.githubusercontent.com/68359459/129280680-6ebd55e1-327c-4695-af8e-29fc0cc2bd9e.png">
+<img src="https://user-images.githubusercontent.com/68359459/142711129-d79b52f7-c46d-4cd5-aa85-b3c261dad558.png">
+
 
 <p>Com acesso a API podemos obter os dados referente as cotações da moedas, e fazemos a nossa configuração para definir qual a moeda é a de base de referência.</p>
 <img src="https://user-images.githubusercontent.com/68359459/129281094-c64baf35-32d9-42e4-89bd-a0d63309353e.png">
