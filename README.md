@@ -16,8 +16,7 @@
   
 <h2>Description</h2>
 <p>Esse projeto consiste numa aplicação web para uma aplicação de requisição da taxa de câmbio da moedas internacionais, como por exemplo o Dólar atualmente em relação ao Real</p>
-<img src="https://user-images.githubusercontent.com/68359459/129280905-bb2abefb-8232-451f-8be3-5dc4c43502cd.png">
-  
+<img src="https://user-images.githubusercontent.com/68359459/142724197-c4faa4ba-6324-4974-b2a8-16ffbd40534f.png">
 
 <img src="https://user-images.githubusercontent.com/68359459/142711129-d79b52f7-c46d-4cd5-aa85-b3c261dad558.png">
 
