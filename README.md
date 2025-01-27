@@ -149,8 +149,7 @@ Você deve navegar até o seu repositório onde fez o fork e clicar no botão *N
 
 
 <h4 align="center"> 
-	🚧  Podendo ser acessado atráves do endereço <a href="[https://cristianodasilvaferreira.github.io/Converso-Moeda-VanillaJS](https://cristianosfmothe.github.io/Converso-Moeda-VanillaJS/)/">Converso de Moedas</a>  🚧
-	
+	🚧  Finalizado podendo ser acessado atráves do endereço <a href="https://cristianodasilvaferreira.github.io/Converso-Moeda-VanillaJS/">Converso de Moedas</a>  🚧	
 </h4>
 
 
